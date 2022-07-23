@@ -10,11 +10,11 @@ module.exports = (sequelize) => {
       allowNull:false,
       primaryKey:true,
     },
-    name: {
+    name:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    life:{
+    hp:{
       type: DataTypes.INTEGER,
     },
     attack:{
@@ -27,18 +27,18 @@ module.exports = (sequelize) => {
       type:DataTypes.INTEGER,
     },
     height:{
-      type: DataTypes.DECIMAL,
+      type: DataTypes.INTEGER,
     },
     weight:{
-      type: DataTypes.DECIMAL,
+      type: DataTypes.INTEGER,
     },
 
-    image: {
+    img: {
       type: DataTypes.STRING,
     },
     createInDb:{
       type:DataTypes.BOOLEAN,
-      allowNull:false,
+
       defaulValue:true,
 
     }

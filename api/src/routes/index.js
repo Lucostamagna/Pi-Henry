@@ -1,82 +1,17 @@
 const { Router } = require('express');
 const axios = require('axios');
+const { getAllPokemon } = require('./controllers');
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Pokemon, Type } = require('../db')
 const router = Router();
 
-//FUNCIONES CONTROLADORAS.
-
-    const getApiInfo = async () => {
-        try {
-            let url = 'https://pokeapi.co/api/v2/pokemon/';
-            let pokemones = [];
-            do {
-                let info = await axios.get(url);
-                let pokemonesApi = info.data;
-                let auxPokemones = pokemonesApi.results.map(e => {
-                    return {
-                        name: e.name,
-                        url: e.url,
-                    }
-                })
-                pokemones.push(...auxPokemones);
-                url = pokemonesApi.next;
-            } while (url != null && pokemones.length < 40); //ACA PUEDO LIMITARLOS A LOS QUE QUIERA TRAER
-          
-            let pokesWithData = await Promise.all(pokemones.map(async e => {
-                let pokemon = await axios.get(e.url);
-                return {
-                    id: pokemon.data.id,
-                    name: pokemon.data.name,
-                    img: pokemon.data.sprites.other.home.front_default,
-                    types: pokemon.data.types.map(e => {
-                        return ({
-                            name: e.type.name,
-                            img: `https://typedex.app/images/ui/types/dark/${e.type.name}.svg`,
-                        })
-                    }),
-                    hp: pokemon.data.stats[0].base_stat,
-                    attack: pokemon.data.stats[1].base_stat,
-                    defense: pokemon.data.stats[2].base_stat,
-                    speed: pokemon.data.stats[5].base_stat,
-                    height: pokemon.data.height,
-                    weight: pokemon.data.weight,
-                }
-            }));
-            
-            return pokesWithData;
-        } catch (e) {
-            console.log(e);
-        };
-    };
-
-const getDbInfo= async ()=>{
-    return await Pokemon.findAll({//asi me traigo todo
-        includes:{
-            model: Type,  //Los pokemones que me traiga tienen que incluir el modelo type
-            attribute: ['name'], //solo le digo name po que el id ya me lo va a traer.
-            through:{ //ES UNA COMPROBACION, VA SIEMPRE
-                attributes: [], //QUIERO QUE ME TRAIGAS TODOS LOS POKEMONES Y ADEMAS QUE ME INCLUYAS EL MODELO TIPO
-                //DEL MODELO TYPO TRAEME EL NOMBRE 
-            }
-        }
-    })
-}
-//funcion que me concatena la informacion traiga tanto e la api como de la base de datos
-const getAllPokemon = async ()=>{
-     const ApiInfo= await getApiInfo(); //tengo que invocarla y ademas ejecutarla a la funcion, sino no va a devolverme nada
-     const DbInfo= await getDbInfo ();
-     const allInfo= ApiInfo.concat(DbInfo);
-     return allInfo;
-};
-//----------------------------------------------------------------------------------------------------------------------------
-
-router.get('/', async (req,res)=>{
+router.get('/', async (req,res)=>{ //me trae todos los poquemos
     const { name } = req.query
     const AllPokes = await getAllPokemon(); //llamo a la funcion e arriba
-    if(name){
-        const PokeName = await AllPokes.filter(el=> el.name.toLowerCase() === name.toLowerCase())
+    if(name){                                                     //es mejor usar el includes que el ====
+        const PokeName = AllPokes.filter(el=> el.name.toLowerCase().includes(name.toLowerCase()))
         PokeName.length ?
         res.status(200).send(PokeName) : //podria usar try catch para manejar errores
         res.status(404).send('The Pokemon does not exit')
@@ -84,7 +19,81 @@ router.get('/', async (req,res)=>{
     }else { //si no hay un query me envia todos los pokemones
         res.status(200).send(AllPokes)
     }
+ })
+router.get('/types', async (req, res) => { //me trae todos los tipos de pokemones
+    try {
+        let apitypes = await axios.get('https://pokeapi.co/api/v2/type');
+        let apiTypeInfo = apitypes.data;
+        let types = apiTypeInfo.results.map(e => e.name);
+        types.forEach(type => {
+            Type.findOrCreate({
+                where: {
+                    name: type,
+                }
+            });
+        });
+        const allTypes = await Type.findAll();
+        return res.status(201).send(allTypes);
+    } catch (e) {
+        console.log(e);
+    };
+});
+
+router.get('/:id', async (req,res)=>{
+    const { id } = req.params;
+    const TotalId= await getAllPokemon();
+    try {
+    if(id){
+        const PokeId = TotalId.filter(e => e.id == id)
+        PokeId.length ?
+        res.status(200).send(PokeId) :
+        res.status(404).send('Id not found')
+    }
+    } catch (e){
+       console.log(e);
+    }
 })
+
+
+router.post('/', async (req,res)=>{
+    const {name, hp, attack, defense, speed, height, weight, img, types} = req.body;
+    try{
+        if(name){
+            const AllPokemones = await getAllPokemon(); //si ya existe el nombre que le paso
+            const Poke= AllPokemones.find((e)=> e.name === name.toLowerCase()) // lo busco
+            console.log(Poke)
+        if(Poke === undefined){//si pokemon no existe
+    
+            const CreatePokemon = await Pokemon.create({ //uso el modelo de pokemon para poder crear uno.
+                name,
+                hp,
+                attack, 
+                defense, 
+                speed, 
+                height, 
+                weight, 
+                img,
+            });
+            const typesDb= await Type.findAll({
+                where:{
+               name: types//que me busque donde el nombre sea igual al tipo que me llega por body
+               }
+            });
+            CreatePokemon.addType(typesDb) //a esa constante que la uso para crearme los personajes agregale el tipo que encontre en la otra tabla
+            return res.status(201).send(CreatePokemon)
+        }
+           return res.status(404).send('el pokemon ya existe')
+}
+        if(!name) return res.status(404).send('campo obligatorio')
+    }catch (e){
+        console.log(e)
+    }
+
+})
+
+
+
+
 
 
 
