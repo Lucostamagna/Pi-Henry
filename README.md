@@ -152,18 +152,20 @@ El modelo de la base de datos deberá tener las siguientes entidades (Aquellas p
 - [ ] Tipo con las siguientes propiedades:
   - ID
   - Nombre
+  -----------------------------------------------------------------HECHO
 
 La relación entre ambas entidades debe ser de muchos a muchos ya que un pokemon puede pertenecer a más de un tipo y, a su vez, un tipo puede incluir a muchos pokemons.
+ -------------------------------------------------------------------HECHO
 
 __IMPORTANTE__: Pensar como modelar los IDs de los pokemons en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en alguno, este puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API el pokemon `Bulbasaur` tiene id = 1 y en nuestra base de datos creamos un nuevo pokemon `Henry` con id = 1, ver la forma de diferenciarlos cuando querramos acceder al detalle del mismo.
 
-## Backend
+## Backend                                                                   qa <zaaaaaaaaaaaaaaaa33332z<>>
 
 Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 
 __IMPORTANTE__: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
 
-- [ ] __GET /pokemons__:
+- [ ] __GET /__:
   - Obtener un listado de los pokemons desde pokeapi.
   - Debe devolver solo los datos necesarios para la ruta principal
 - [ ] __GET /pokemons/{idPokemon}__:

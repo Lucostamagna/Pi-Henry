@@ -7,7 +7,7 @@ const { getAllPokemon } = require('./controllers');
 const { Pokemon, Type } = require('../db')
 const router = Router();
 
-router.get('/', async (req,res)=>{ //me trae todos los poquemos
+router.get('/pokemons', async (req,res)=>{ //me trae todos los pokemoness
     const { name } = req.query
     const AllPokes = await getAllPokemon(); //llamo a la funcion e arriba
     if(name){                                                     //es mejor usar el includes que el ====
@@ -17,11 +17,11 @@ router.get('/', async (req,res)=>{ //me trae todos los poquemos
         res.status(404).send('The Pokemon does not exit')
 
     }else { //si no hay un query me envia todos los pokemones
-        res.status(200).send(AllPokes)
+        res.status(201).send(AllPokes)
     }
  })
 router.get('/types', async (req, res) => { //me trae todos los tipos de pokemones
-    try {
+    
         let apitypes = await axios.get('https://pokeapi.co/api/v2/type');
         let apiTypeInfo = apitypes.data;
         let types = apiTypeInfo.results.map(e => e.name);
@@ -34,9 +34,7 @@ router.get('/types', async (req, res) => { //me trae todos los tipos de pokemone
         });
         const allTypes = await Type.findAll();
         return res.status(201).send(allTypes);
-    } catch (e) {
-        console.log(e);
-    };
+   
 });
 
 router.get('/:id', async (req,res)=>{
@@ -55,14 +53,14 @@ router.get('/:id', async (req,res)=>{
 })
 
 
-router.post('/', async (req,res)=>{
-    const {name, hp, attack, defense, speed, height, weight, img, types} = req.body;
-    try{
+router.post('/pokemons', async (req,res)=>{
+    const {name, hp, attack, defense, speed, height, weight, img, types, createInDb} = req.body;
+    
         if(name){
             const AllPokemones = await getAllPokemon(); //si ya existe el nombre que le paso
             const Poke= AllPokemones.find((e)=> e.name === name.toLowerCase()) // lo busco
             console.log(Poke)
-        if(Poke === undefined){//si pokemon no existe
+           if(Poke === undefined){//si pokemon no existe
     
             const CreatePokemon = await Pokemon.create({ //uso el modelo de pokemon para poder crear uno.
                 name,
@@ -73,22 +71,15 @@ router.post('/', async (req,res)=>{
                 height, 
                 weight, 
                 img,
+                createInDb
             });
-            const typesDb= await Type.findAll({
-                where:{
-               name: types//que me busque donde el nombre sea igual al tipo que me llega por body
-               }
+            const typesDb= await Type.findAll({ where: { name: types}//que me busque donde el nombre sea igual al tipo que me llega por bod  
             });
             CreatePokemon.addType(typesDb) //a esa constante que la uso para crearme los personajes agregale el tipo que encontre en la otra tabla
             return res.status(201).send(CreatePokemon)
         }
-           return res.status(404).send('el pokemon ya existe')
+           return res.status(404).send('existing pokemon')
 }
-        if(!name) return res.status(404).send('campo obligatorio')
-    }catch (e){
-        console.log(e)
-    }
-
 })
 
 
