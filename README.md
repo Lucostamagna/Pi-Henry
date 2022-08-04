@@ -115,6 +115,7 @@ __Ruta principal__: debe contener
   - Imagen
   - Nombre
   - Tipos (Electrico, Fuego, Agua, etc)
+  //NO SON LO MISMO, ESCUCHAR EL AUDIO DE MARIOOOOOOOOOOOOOOOOOOOOO
 - [ ] Botones/Opciones para filtrar por tipo de pokemon y por pokemon existente o creado por nosotros
 - [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque
 - [ ] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por pagina.

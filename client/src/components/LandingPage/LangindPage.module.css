@@ -1,6 +1,7 @@
-/* //.bg{
-    /* background-color: 
-    height: 100vh;
-    width: 100vw;
-} */ 
+.bg{
+    background-image: url('../../Img/mewtwo-pokemon.jpg');
+     
+    height: 600vh;
+    width: 600vw,
+}
 
