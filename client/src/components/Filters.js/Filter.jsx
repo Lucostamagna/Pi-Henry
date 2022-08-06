@@ -1,8 +1,8 @@
-// import React from "react";
-// import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import filterPokemonByType from "../../action/action";
-// import getAllTypes from "../../action/action";
+import React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {filterPokemonByType, getPokemonsByName, orderName, orderByAttack}  from "../../action/action";
+
 
 // const Filter = () => {
 //   const dispatch = useDispatch();

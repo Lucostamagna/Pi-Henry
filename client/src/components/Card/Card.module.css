@@ -1,9 +1,6 @@
-.types {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1vh;
-    text-decoration: none;
+.card {
+    border-color: #22043dda;
+    border-width: 1.5px;
+    border-style: solid;
+    margin: 35px;
 }

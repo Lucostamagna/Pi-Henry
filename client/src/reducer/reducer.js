@@ -6,11 +6,16 @@ import {
   FILTER_CREATED,
   ORDER_BY_NAME,
   ORDER_BY_ATTACK,
+  POST_POKEMON,
+  GET_DETAILS,
+
 } from "../action/action";
 
 const initialState = {
   pokemons: [],
   allPokemons: [], //lo tengo de  soporte para pode filtrar
+  types:[],
+  detail:[], //para los detalles
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -87,16 +92,26 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: action.payload,
       };
+      case POST_POKEMON:
+        return{
+          ...state,
+        }
+        case GET_ALLTYPES:
+          return {
+            ...state,
+            types: action.payload,
+          };
+          case GET_DETAILS:
+            return{
+              ...state,
+              detail:action.payload
+            }
       
 
     default:
       return { ...state };
   }
-  // case GET_ALLTYPES:
-  //   return {
-  //     ...state,
-  //     allTypes: payload,
-  //   };
+ 
 };
 
 export default rootReducer;

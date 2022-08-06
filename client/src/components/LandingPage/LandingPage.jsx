@@ -4,7 +4,7 @@ import style from './LangindPage.module.css'
 
 export default function LandingPage(){
     return (
-      <div >
+      <div  className={style.bg}>
         <h2> - WELCOME to the Pokemon APP - </h2>
         <h5> Pokemon App by Lucía Costamagna.</h5>
         <Link to ='/home'>
