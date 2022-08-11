@@ -1,0 +1,131 @@
+
+.bg{
+    /* background: url('../../Img/76.jpg') fixed; */
+    background-attachment: scroll;
+    display:block;
+    
+   
+}
+.name{
+    width: 90px;
+    height: 50px;
+    color:aliceblue;
+   font-size: 3rem;
+   margin-top: 0.5rem;
+    font-weight: 700;
+    font-family: 'Pacifico';
+    text-decoration: underline red;
+    text-shadow: #000000;
+    margin-left: 2rem
+  ;
+}
+.date{
+  background-color: white;
+  margin-top: -10.5rem;
+  margin-bottom: 5rem;
+  font-size: 1.3rem;
+  font-weight: 2rem;
+
+}
+
+
+.card {
+  background-image: url('../../Img/88.jpg');
+  
+    width: 600px;
+    height: 530px;
+    
+    border: 6px solid black ;
+    box-shadow: 8px 8px 8px #000000 inset;
+    
+    
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pacifico';
+    margin-top: 2rem;
+    margin-left: 20rem;
+  }
+  
+  .card:hover {
+    color:red  ;
+    box-shadow: 2px 2px 15px red    inset;
+  }
+.img{
+    opacity: none;
+    width: 20rem;
+    height:20rem;
+    align-content: flex-end;
+    margin-top: 3rem;
+    margin-left: 20rem;
+   box-shadow: inset black;
+   
+   
+}
+.id{
+  font-weight: 300rem;
+  margin-top: -5rem;
+  font-size: 3rem;
+  color: aliceblue;
+  margin-left: 25rem;
+  margin-top: -6rem;
+ 
+ 
+}
+.dates{
+  background-color: white;
+ margin-top: -2rem;
+  font-size: 1.2rem;
+  font-weight: 2rem;
+}
+.btn {
+  --color:red ;
+  font-family: inherit;
+ 
+  display: inline-block;
+  width: 15em;
+  height: 2.5em;
+  line-height: 2.5em;
+  margin: 20px;
+  margin-left: -2rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color .5s;
+  z-index: 1;
+  font-size: 21px;
+  border-radius: 6px;
+  font-weight: 800;
+  color: var(--color);
+ }
+ 
+ .btn:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: black;
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+ }
+ 
+ .btn:hover {
+  color: #fff;
+ }
+ 
+ .button:before {
+  top: 100%;
+  left: 100%;
+  transition: all .7s;
+ }
+ 
+ .btn:hover:before {
+  top: -30px;
+  left: -30px;
+ }
+ 
+ .btn:active:before {
+  background: red ;
+  transition: background 0s;
+ }

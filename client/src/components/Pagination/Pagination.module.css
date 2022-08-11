@@ -1,22 +1,43 @@
+
+.div{
+    margin-top: -10rem;
+    margin-left: 5rem;
+}
+
 .list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 9.5vw;
-    padding: 20px;
-    width: 50vw;
-    height: 5vh;
-    gap: 0.3vw;
+     display: flex;
+    padding-left: 90px;
+   
 }
 
 .items {
     text-align: center;
     list-style: none;
-    border: 1px solid #f3cf3d4d;
-    border-radius: 50%;
+    border: 3px solid black;
+    border-radius: 30%;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     padding: 4px;
-    background-color: #f3cf3d4d;
+    background-color: black;
+    
+}
+.btn {
+    background-color: #BDDA06 ;
+    border-radius: 30%;
+    border: 2.5px solid black ;
+    transition-duration: 0.4s;
+    width: 40px;
+    height: 40px;
+    margin-top: 6px;
+    
+
+}
+.btn:focus
+{outline:none }
+
+.btn:hover {
+    cursor:pointer;
+    background-color:#D5F5E3 ;
+    color: whitesmoke(255, 255, 255)
 }

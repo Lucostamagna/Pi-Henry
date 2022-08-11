@@ -8,14 +8,14 @@ import {
   ORDER_BY_ATTACK,
   POST_POKEMON,
   GET_DETAILS,
-
+  CLEAN_POKEMONS,
 } from "../action/action";
 
 const initialState = {
   pokemons: [],
   allPokemons: [], //lo tengo de  soporte para pode filtrar
-  types:[],
-  detail:[], //para los detalles
+  types: [],
+  detail: [], //para los detalles
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -25,6 +25,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: action.payload,
         allPokemons: action.payload,
+      };
+    case CLEAN_POKEMONS:
+      return {
+        ...state,
+        pokemons: action.payload,
+      };
+    case GET_ALLTYPES:
+      return {
+        ...state,
+        types: action.payload,
+      };
+    case GET_DETAILS:
+      return {
+        ...state,
+        detail: action.payload,
       };
     case FILTER_CREATED:
       let filterCopy = state.allPokemons; ////base de datos
@@ -70,48 +85,37 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: sortedByName,
       };
-      case ORDER_BY_ATTACK:
-        let sortedByAttack=
-        action.payload === "Mayor fuerza" ? state.pokemons.sort((a, b)=>{
-          if (a.attack > b.attack) return 1;
-          if(b.attack > a.attack) return  -1;
-          return 0;
-        })
-        : state.pokemons.sort((a,b)=>{
-          if(a.attack > b.attack) return -1;
-          if(b.attack > a.attack) return 1;
-          return 0;
-        });
-        return{
-          ...state,
-          pokemons: sortedByAttack,
-        }
-      
+    case ORDER_BY_ATTACK:
+      let sortedByAttack =
+        action.payload === "Mayor fuerza"
+          ? state.pokemons.sort((a, b) => {
+              if (a.attack > b.attack) return 1;
+              if (b.attack > a.attack) return -1;
+              return 0;
+            })
+          : state.pokemons.sort((a, b) => {
+              if (a.attack > b.attack) return -1;
+              if (b.attack > a.attack) return 1;
+              return 0;
+            });
+      return {
+        ...state,
+        pokemons: sortedByAttack,
+      };
+
     case GET_POKEMONS_BY_NAME:
       return {
         ...state,
         pokemons: action.payload,
       };
-      case POST_POKEMON:
-        return{
-          ...state,
-        }
-        case GET_ALLTYPES:
-          return {
-            ...state,
-            types: action.payload,
-          };
-          case GET_DETAILS:
-            return{
-              ...state,
-              detail:action.payload
-            }
-      
+    case POST_POKEMON:
+      return {
+        ...state,
+      };
 
     default:
       return { ...state };
   }
- 
 };
 
 export default rootReducer;

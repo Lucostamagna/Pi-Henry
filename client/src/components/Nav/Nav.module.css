@@ -1,0 +1,55 @@
+.nav {
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(255, 255, 255, 0.651);
+    width: 100%;
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+
+
+}
+
+.name {
+    color: #C9E806;
+    font-family: 'Verdana', sans-serif;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-left: 2.4rem;
+    font-size: 1.3rem;
+    text-decoration: underline white;
+    
+}
+
+.btn {
+    font-weight: 800;
+
+    
+    margin-right: 7vw;
+    margin-top: 2px;
+    position: center;
+    height: 62px;
+    width: 210px;
+    border-radius: 9px;
+    background-color: transparent;
+    box-shadow: 2px 2px 2px 2px rgba(255, 255, 255, 0.651);
+    transition-duration: 0.4s;
+    color: whitesmoke;
+    font-size: 19px;
+    border: 2px solid whitesmoke;
+    font-weight: 700;
+    cursor: pointer
+}
+
+.btn:focus {
+    outline: none
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: #C9E806;
+    color: #F39C12
+    (255, 255, 255)
+}

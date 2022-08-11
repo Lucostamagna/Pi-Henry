@@ -9,6 +9,9 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_ATTACK="ORDER_BY_ATTACK"
 export const POST_POKEMON="POST_POKEMON"
 export const GET_DETAILS='GET_DETAILS'
+export const CLEAN_POKEMONS='CLEAN_POKEMONS'
+
+//-------------------------------------------------
 export const getPokemons = () => {
   return async function (dispatch) {
     let json = await axios.get("http://localhost:3001/pokemons");
@@ -16,6 +19,12 @@ export const getPokemons = () => {
       type: GET_POKEMONS,
       payload: json.data,
     });
+  };
+};
+export const cleanPokemons = () => {
+  return {
+    type: CLEAN_POKEMONS,
+    payload: [],
   };
 };
 export const getAllTypes = () => {
@@ -54,12 +63,6 @@ export const orderByAttack = (payload) => {
   };
 };
 
-// export const filterPokemonByType=(data)=> {
-//   return {
-//     type: FILTER_BY_TYPES,
-//     payload:data
-//   };
-// }
 
 //-- buscar por nombre.
 export const getPokemonsByName = (name) => {
@@ -71,35 +74,38 @@ export const getPokemonsByName = (name) => {
         payload: json.data,
       });
     } catch (e) {
+      alert ('Pokemon not found');
+      console.log(e)
+    }
+  };
+};
+export const postPokemon = (payload) => {
+  return async function (dispatch) {
+    try {
+      let PokemonCreated = await axios.post(
+        "http://localhost:3001/pokemons",
+        payload
+      );
+      console.log(PokemonCreated);
+      alert("Successfully created pokemon");
+      return PokemonCreated;
+    } catch (e) {
+      alert("Existing pokemon");
       console.log(e);
     }
   };
 };
-export const postPokemon = (payload) =>{
-  return  async function (dispatch) {
+export const getDetail = (id) => {
+  return async function (dispatch) {
     try {
- let PokemonCreated= await axios.post("http://localhost:3001/pokemons", payload)
- console.log(PokemonCreated)
- alert('Successfully created pokemon')
- 
-    } catch (e){
-      alert('Existing pokemon')
-      console.log(e)
+      var json = await axios.get("http://localhost:3001/pokemons/" + id);
+      return dispatch({
+        type: GET_DETAILS,
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
-export const getDetail=(id)=>{
- return async function (dispatch){
-  try{
-    let json= await axios.get("http://localhost:3001/pokemons" +id);
-    return dispatch({
-      type:GET_DETAILS,
-      payload: json.data
-    })
-   
-    } catch (e){
-      console.log(e)
   };
- };
 };
 

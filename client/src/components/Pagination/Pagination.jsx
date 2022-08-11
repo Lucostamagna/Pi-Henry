@@ -1,24 +1,27 @@
 import React from "react";
-import styles from './Pagination.module.css'
+import styles from "./Pagination.module.css";
 
-export default function Pagination({pokemonsPerPage,allPokemons,pagination}) {
+export default function Pagination({
+  pokemonsPerPage,
+  allPokemons,
+  pagination,
+}) {
   const pageNumbers = [];
-  for (let i = 0; i <= Math.ceil(allPokemons/pokemonsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(allPokemons / pokemonsPerPage); i++) {
     //math.ceil lo redonde para arriba
-    pageNumbers.push(i + 1);
+    pageNumbers.push(i);
   }
   return (
-    //me renderiza los numeros
-    <nav>
+    <div className={styles.div}>
       <ul className={styles.list}>
-        {
-        pageNumbers?.map(number => (
-          <li  className={styles.items} key={number}>
-            <a onClick={() => pagination(number)}>{number}</a>
+        {pageNumbers?.map((number) => (
+          <li className={styles.items} key={number}>
+            <button className={styles.btn} onClick={() => pagination(number)}>
+              {number}
+            </button>
           </li>
-        ))
-        }
+        ))}
       </ul>
-    </nav>
+    </div>
   );
 }

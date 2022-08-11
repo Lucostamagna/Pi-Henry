@@ -1,20 +1,20 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons, orderName } from "../../action/action";
+import { getPokemons, cleanPokemons } from "../../action/action";
+import Filters from "../Filters.js/Filter";
 import Card from "../Card/Card";
+import Loading from "../Loading/Loading";
 import Pagination from "../Pagination/Pagination";
-
+import Nav from "../Nav/Nav";
 import SearchBar from "../SearchBar/SearchBar";
-import { filterPokemonByType, filterCreated } from "../../action/action";
-import { orderByAttack } from "../../action/action";
+
 import style from "./Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons);
-  const [order, setOrder] = useState("");
+  //const [order, setOrder] = useState("");
 
   //paginado
   const [currentPage, setCurrentPage] = useState(1); //useState- estado local guardame en un estado local la pagina actual y seteamela. la pagina actual es uno
@@ -25,91 +25,65 @@ export default function Home() {
     indexOfFirstPokemon,
     indexOfLastPokemon
   ); //agarro el arreglo de todos mis pokes y le digo toma el indice del rpimero y del ultimo
+  const [order, setOrder] = useState("");
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   useEffect(() => {
     dispatch(getPokemons());
   }, [dispatch]);
 
-  function handleFilterType(e) {
-    dispatch(filterPokemonByType(e.target.value));
-  }
-  function handleFilterCreated(e) {
-    dispatch(filterCreated(e.target.value));
-  }
-  //e => {handleFilterCreated(e)}
-  function handleSort(e) {
+  const handleClick = (e) => {
     e.preventDefault();
-    dispatch(orderName(e.target.value));
+    dispatch(cleanPokemons(dispatch));
+    dispatch(getPokemons());
+  };
 
-    setOrder(e.target.value);
-    setCurrentPage(1);
-  }
-
-  function handleSortByAttack(e) {
-    e.preventDefault();
-    dispatch(orderByAttack(e.target.value));
-    setOrder(e.target.value);
-    setCurrentPage(1);
-  }
   return (
-    <div>
-      <h1> titulo</h1>
-      <select onChange={handleSort}>
-        <option value="Filtro"> A-Z:</option>
-        <option value="asc">upward</option>
-        <option value="desc">falling</option>
-      </select>
-      <select onChange={handleSortByAttack}>
-        <option value="Strength"> Strength </option>
-        <option value="Mayor fuerza">More strong</option>
-        <option value="Menor fuerza">Less strong</option>
-      </select>
-      <select onChange={handleFilterCreated}>
-        <option value="All"> ALL</option>
-        <option value="api"> API </option>
-        <option value="created"> CREATED </option>
-      </select>
-
-      <select onChange={handleFilterType}>
-        <option value="All"> ALL </option>
-        <option value="normal"> Normal </option>
-        <option value="flying"> Flying </option>
-        <option value="poison"> Poison </option>
-        <option value="ground"> Ground </option>
-        <option value="bug"> Bug </option>
-        <option value="fire"> Fire </option>
-        <option value="water"> Water </option>
-        <option value="grass"> Grass </option>
-        <option value="electric"> Electric </option>
-        <option value="fairy"> Fairy </option>
-      </select>
-      <div>
-        <Pagination
-          pokemonsPerPage={pokemonsPerPage}
-          allPokemons={allPokemons.length}
-          pagination={pagination}
-        />
-        <SearchBar />
-      </div>
-      <div className={style.cards}>
-        {currentPokemons?.map((e, k) => {
-          return (
-            <div key={k}>
-              <Card
-                key={e.id}
-                id={e.id}
-                name={e.name}
-                img={e.img}
-                types={e.types}
-              />{" "}
+    <div className={style.home}>
+      {allPokemons.length > 0 ? (
+        <div>
+          <Nav />
+          <div className={style.home2}>
+            <div className={style.filters}>
+              <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+              <button onClick={handleClick}> limpiar </button>
             </div>
-          );
-        })}
-      </div>
+
+            <div>
+              <div>
+                <SearchBar />
+              </div>
+
+              <div>
+                <Pagination
+                  pokemonsPerPage={pokemonsPerPage}
+                  allPokemons={allPokemons.length}
+                  pagination={pagination}
+                />
+              </div>
+              <div className={style.cards}>
+                {currentPokemons?.map((e, k) => {
+                  return (
+                    <div className={style.card}>
+                      <Card
+                        key={e.id}
+                        id={e.id}
+                        name={e.name}
+                        img={e.img}
+                        types={e.types}
+                      />{" "}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }
