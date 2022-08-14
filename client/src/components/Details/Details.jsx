@@ -16,7 +16,7 @@ const Detail = (props) => {
 
   return (
     <div >
-      {myPokemon.length > 0 ? (
+      { myPokemon.length > 0 ? 
         <div>
           <div className={style.card}>
             <h2  className={style.name}>
@@ -49,15 +49,17 @@ const Detail = (props) => {
             <h5 className={style.date}>Height: {myPokemon[0].height}</h5>
             <h5 className={style.date}>Weight: {myPokemon[0].weight}</h5>
           </div>
-        </div>
-      ) : (
-        <div> <Loading/>  </div>
-      )}
-      <div>
+          <div>
         <Link to="/home">
           <button className={style.btn}>CLOSE</button>
         </Link>
       </div>
+        </div>
+        
+      : 
+        <Loading/>  
+      }
+      
     </div>
   );
 };

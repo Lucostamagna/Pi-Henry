@@ -59,6 +59,8 @@ router.get("/pokemons/:id", async (req, res) => {
   }
 });
 
+
+
 router.post("/pokemons", async (req, res) => {
   const {
     name,
@@ -102,5 +104,21 @@ router.post("/pokemons", async (req, res) => {
     return res.status(404).send("existing pokemon");
   }
 });
+
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const poke = await Pokemon.findByPk(id);
+    if (poke) {
+      await poke.destroy();
+      res.status(200).send("delete correctly");
+    }
+  } catch (e) {
+    return res.status(404).send("Error e el proceso");
+  }
+});
+
+
 
 module.exports = router;

@@ -167,3 +167,9 @@ background-color: #FF0000;
   background: #1ABC9C ;
   transition: background 0s;
  }
+ .btnn{
+  background: transparent;
+  border-color: aliceblue;
+  font-style: italic black;
+  cursor: pointer;
+ }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons, cleanPokemons } from "../../action/action";
+import { getPokemons, } from "../../action/action";
 import Filters from "../Filters.js/Filter";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
@@ -16,7 +16,7 @@ export default function Home() {
   const allPokemons = useSelector((state) => state.pokemons);
   //const [order, setOrder] = useState("");
 
-  //paginado
+  //_______________Paginado
   const [currentPage, setCurrentPage] = useState(1); //useState- estado local guardame en un estado local la pagina actual y seteamela. la pagina actual es uno
   const [pokemonsPerPage, setPokemonsPerPage] = useState(12); // tbm es un estado local y guardame cuando personaje quiero por pagina
   const indexOfLastPokemon = currentPage * pokemonsPerPage; //indice del ultimo personaje por pagina. primero es 12
@@ -34,23 +34,18 @@ export default function Home() {
     dispatch(getPokemons());
   }, [dispatch]);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(cleanPokemons(dispatch));
-    dispatch(getPokemons());
-  };
+
 
   return (
     <div className={style.home}>
       {allPokemons.length > 0 ? (
         <div>
+       
           <Nav />
           <div className={style.home2}>
             <div className={style.filters}>
-              <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
-              <button onClick={handleClick}> limpiar </button>
+              <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />   
             </div>
-
             <div>
               <div>
                 <SearchBar />
@@ -64,7 +59,7 @@ export default function Home() {
                 />
               </div>
               <div className={style.cards}>
-                {currentPokemons?.map((e, k) => {
+                { currentPokemons? currentPokemons?.map((e, k) => {
                   return (
                     <div className={style.card}>
                       <Card
@@ -76,7 +71,9 @@ export default function Home() {
                       />{" "}
                     </div>
                   );
-                })}
+                }) : 
+                  <p> No se encontro</p>
+                }
               </div>
             </div>
           </div>

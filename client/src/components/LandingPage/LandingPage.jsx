@@ -9,7 +9,7 @@ export default function LandingPage() {
         <Link to="/home">
           <button className={style.button}> WELCOME! </button>
         </Link>
-        {/* <h1 className={style.name}>  POKEMON-APP</h1> */}
+        
       </div>
       <div className={style.spinner}>
         <span>H</span>
@@ -23,6 +23,10 @@ export default function LandingPage() {
         <span>K</span>
         <span>E</span>
       </div>
+     
+     <Link to="/about">
+     <button className={style.btn}> ABOUT </button>
+     </Link>
     </div>
   );
 }

@@ -14,7 +14,7 @@
 
 .name {
     color: #C9E806;
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
     align-items: flex-start;
     justify-content: space-between;
     margin-left: 2.4rem;
@@ -52,4 +52,18 @@
     background-color: #C9E806;
     color: #F39C12
     (255, 255, 255)
+}
+.button{
+    background: transparent;
+    cursor: pointer;
+    height: 3rem;
+    color: #C9E806;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-left: 2.4rem;
+    font-size: 1.6rem;
+    text-decoration: underline wheat;
+    border: none;
+    
 }

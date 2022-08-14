@@ -9,12 +9,12 @@
 .name{
     width: 90px;
     height: 50px;
-    color:aliceblue;
+    color:blue;
    font-size: 3rem;
    margin-top: 0.5rem;
     font-weight: 700;
     font-family: 'Pacifico';
-    text-decoration: underline red;
+    text-decoration: underline black;
     text-shadow: #000000;
     margin-left: 2rem
   ;
@@ -48,8 +48,8 @@
   }
   
   .card:hover {
-    color:red  ;
-    box-shadow: 2px 2px 15px red    inset;
+    color:blue  ;
+    box-shadow: 2px 2px 15px blue    inset;
   }
 .img{
     opacity: none;
@@ -59,16 +59,18 @@
     margin-top: 3rem;
     margin-left: 20rem;
    box-shadow: inset black;
-   
+  
    
 }
 .id{
-  font-weight: 300rem;
+  font-weight: 3rem;
   margin-top: -5rem;
-  font-size: 3rem;
-  color: aliceblue;
+  font-size: 1.5rem;
+  height: 4.5rem;
+  color: blue;
   margin-left: 25rem;
   margin-top: -6rem;
+
  
  
 }

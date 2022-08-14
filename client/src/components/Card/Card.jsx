@@ -6,11 +6,12 @@ import noImg from "../../Img/5.jpg";
 function Card({ name, img, types, id }) {
   return (
     <NavLink className={style.none} to={`/pokemons/${id}`}>
-      <div >
+      <div>
         <div className={style.card}>
           <h1 className={style.name}>
             {name.charAt(0).toUpperCase() + name.slice(1)}
           </h1>
+
           <img
             className={style.img}
             src={img ? img : noImg}

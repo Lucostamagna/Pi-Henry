@@ -70,7 +70,7 @@
 
          <label className={style.label}> Created - Api </label>
          <select className={style.select} onChange={handleFilterCreated}>
-           <option value="All"> ALL</option>
+           <option value="ALL"> ALL</option>
            <option value="api"> API </option>
            <option value="created"> CREATED </option>
          </select>

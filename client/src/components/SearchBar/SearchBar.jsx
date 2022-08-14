@@ -1,14 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemonsByName,cleanPokemons} from "../../action/action";
+import { getPokemonsByName, cleanPokemons} from "../../action/action";
 import style from './SearchBar.module.css'
 
+//traerme los pokemones en un estado
+//dispatch (useEffect) e importarlo
+//
 
+//
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState(""); //estado local
+  const [name, setName] = useState(""); 
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -17,10 +21,11 @@ const SearchBar = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(cleanPokemons(dispatch));
+    if(name !== ""){ // hacer un condicional, preguntando si el nombre es diferente al existtente
     dispatch(getPokemonsByName(name));
+    dispatch(cleanPokemons(dispatch))
+    }
     setName("");
-    
   };
 
   return (

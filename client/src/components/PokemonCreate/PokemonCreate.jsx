@@ -1,19 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postPokemon, getAllTypes } from "../../action/action";
+import { postPokemon, getAllTypes, getPokemons } from "../../action/action";
 import style from './PokenonCreate.module.css'
 import { Link, useHistory } from "react-router-dom";
 import validate from "./Validation";
 
 
-
 const PokemonCreate = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const types = useSelector((state) => state.types); //me traigo typos
-  const [errors, setErrors] = useState({});
+  const types = useSelector((state) => state.types);
+const allPokemons = useSelector((state)=> state.pokemons)
 
+
+const [boolean, setBoolean] = useState(false);
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     hp: "",
@@ -26,9 +28,8 @@ const PokemonCreate = () => {
     img: "",
   });
 
-  //history.push('/home')
-  function handleChange(e) {
-    //cada vez que se modifiquen mis input
+  function handleChange(e) { 
+    //maneja el cambio de mis input
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -48,14 +49,23 @@ const PokemonCreate = () => {
         ...input,
         types: [...input.types, e.target.value],
       });
-      e.target.value = "Select type";
     } else {
       alert("Two types of pokemon at most");
     }
   };
+
+  
+  function handleReset(){
+    setInput({
+      ...input,
+      types:[]
+    })
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (
+      input.name !== "" &&
       !errors.name &&
       !errors.hp &&
       !errors.attack &&
@@ -64,7 +74,7 @@ const PokemonCreate = () => {
       !errors.height &&
       !errors.weight &&
       !errors.img &&
-      !errors.types
+      !errors.type
     ) {
       dispatch(postPokemon(input));
       alert("Pokemon created");
@@ -87,16 +97,19 @@ const PokemonCreate = () => {
 
   useEffect(() => {
     dispatch(getAllTypes());
+    dispatch(getPokemons());
   }, [dispatch]);
+
+  useEffect(()=>{
+    setErrors(validate(input,allPokemons))
+  },[input])
 
   return (
     <div>
-      
       <Link to="/home">
         <button className={style.btn}>BACK </button>
       </Link>
 
-      
       <form onSubmit={handleSubmit}>
         <div className={style.div}>
           <label className={style.label}> Name:</label>
@@ -187,29 +200,37 @@ const PokemonCreate = () => {
           />
           {errors.img && <p className={style.error}>{errors.img} </p>}
 
-          <label className={style.label}>Types:</label>
 
+
+          <label className={style.label}>Types:</label>
           <select onChange={handleSelect}>
             <option className={style.select}>Select type</option>
+
             {types.map((type) => (
-              <option value={type.name} key={type.name}>
-                {type.name}
-              </option>
+              <option value={type.name} key={type.name}>{type.name}</option>
             ))}
           </select>
-
           <div>
-            {input.types.length > 0 &&
+            {
               input.types.map((t) => (
-                <div className={style.label} key={t}>
-                  {t}
-                </div>
+
+                <div className={style.label} 
+                key={t}> {t}
+              
+                 </div>
+                
               ))}
 
-            {errors.types && <p className={style.error}>{errors.types} </p>}
+            {boolean && errors.types ? (
+              <span className={style.error}>{errors.types}</span>
+            ) : null}
           </div>
+          <div> <button type='reset' onClick={handleReset} className={style.btnn} >Clean</button> </div>
         </div>
-        <button className={style.button} type="submit"> CREATE!</button>
+        <button className={style.button} type="submit">
+          {" "}
+          CREATE!
+        </button>
       </form>
     </div>
   );
