@@ -21,12 +21,14 @@ export const getPokemons = () => {
     });
   };
 };
+
 export const cleanPokemons = () => {
   return {
     type: CLEAN_POKEMONS,
     payload: [],
   };
 };
+
 export const getAllTypes = () => {
   return async function (dispatch) {
     let url = "http://localhost:3001/types";
@@ -38,24 +40,28 @@ export const getAllTypes = () => {
     });
   };
 };
+
 export const filterPokemonByType = (payload) => {
   return {
     type: FILTER_BY_TYPES,
     payload,
   };
 };
+
 export const filterCreated = (payload) => {
   return {
     type: FILTER_CREATED,
     payload,
   };
 };
+
 export const orderName = (payload) => {
   return {
     type: ORDER_BY_NAME,
     payload,
   };
 };
+
 export const orderByAttack = (payload) => {
   return {
     type: ORDER_BY_ATTACK,
@@ -64,7 +70,6 @@ export const orderByAttack = (payload) => {
 };
 
 
-//-- buscar por nombre.
 export const getPokemonsByName = (name) => {
   return async function (dispatch) {
     try {
@@ -79,6 +84,7 @@ export const getPokemonsByName = (name) => {
     }
   };
 };
+
 export const postPokemon = (payload) => {
   return async function (dispatch) {
     try {
@@ -95,6 +101,7 @@ export const postPokemon = (payload) => {
     }
   };
 };
+
 export const getDetail = (id) => {
   return async function (dispatch) {
     try {
@@ -108,5 +115,4 @@ export const getDetail = (id) => {
     }
   };
 };
-
 

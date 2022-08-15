@@ -81,7 +81,7 @@
   font-weight: 2rem;
 }
 .btn {
-  --color:red ;
+  --color:blue;
   font-family: inherit;
  
   display: inline-block;
@@ -128,6 +128,6 @@
  }
  
  .btn:active:before {
-  background: red ;
+  background: blue ;
   transition: background 0s;
  }

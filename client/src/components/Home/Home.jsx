@@ -59,7 +59,7 @@ export default function Home() {
                 />
               </div>
               <div className={style.cards}>
-                { currentPokemons? currentPokemons?.map((e, k) => {
+                {currentPokemons?.map((e, k) => {
                   return (
                     <div className={style.card}>
                       <Card
@@ -71,9 +71,7 @@ export default function Home() {
                       />{" "}
                     </div>
                   );
-                }) : 
-                  <p> No se encontro</p>
-                }
+                })}
               </div>
             </div>
           </div>

@@ -1,14 +1,107 @@
+
 .div{
     
+  margin-top: -1rem;
+  display: flex;
+  border: solid black;
+ flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25vw;
+  width: 50vw;
+  height: 70%;
+  border-radius: 40px;
+  padding: 25px;
+  gap: 9px;
+background-color: whitesmoke;
   
-    width: 600px;
-    height: 350px;
-    border: 6px solid black ;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Pacifico';
-    margin-top: 2rem;
-    margin-left: 20rem;
-  }
+
+  box-shadow: 10 10px 25px white(0,0,0,0.3);
+  box-shadow: 15px 15px 15px white(0, 0, 0, 0.9);
+ 
+  
+}
+.tittle{
+  font-family: 'Roboto', 'Segoe UI';
+  font-size: 3rem;
+  font-style: unset;
+  color: black;
+  margin-top: 1rem;
+  text-decoration: underline;
+  
+}
+.p{
+  font-size: 1.7rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+.p2{
+  margin-bottom: -1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: red;
+  font-size: 2.5rem;
+  text-decoration: underline black;
+}
+
+.btn {
+  --color:red;
+  font-family: inherit;
+ 
+  display: inline-block;
+  width: 15em;
+  height: 2.5em;
+  line-height: 2.5em;
+  margin: 20px;
+  margin-left: -2rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color .5s;
+  z-index: 1;
+  font-size: 21px;
+  border-radius: 6px;
+  font-weight: 800;
+  color: var(--color);
+ }
+ 
+ .btn:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: black;
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+ }
+ 
+ .btn:hover {
+  color: red;
+ }
+ 
+ .button:before {
+  top: 100%;
+  left: 100%;
+  transition: all .7s;
+ }
+ 
+ .btn:hover:before {
+  top: -30px;
+  left: -30px;
+ }
+ 
+ .btn:active:before {
+  background: blueviolet ;
+  transition: background 0s;
+ }
+ .image{
+  
+  width: 14rem;
+  height: 14rem;
+  margin-top: -25rem;
+  margin-left: 39rem;
+ }
+
+
   
  

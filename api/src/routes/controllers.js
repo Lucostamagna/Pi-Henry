@@ -2,6 +2,8 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
+
+// - - Api information
 const getApiInfo = async () => {
   try {
     let url = "https://pokeapi.co/api/v2/pokemon/";
@@ -47,23 +49,23 @@ const getApiInfo = async () => {
   }
 };
 
+//-- Bd information
+
 const getDbInfo = async () => {
   return await Pokemon.findAll({
-    //asi me traigo todo
     include: {
-      model: Type, //Los pokemones que me traiga tienen que incluir el modelo type
-      attribute: ["name"], //solo le digo name po que el id ya me lo va a traer.
+      model: Type, 
+      attribute: ["name"],
       through: {
-        //ES UNA COMPROBACION, VA SIEMPRE
-        attributes: [], //QUIERO QUE ME TRAIGAS TODOS LOS POKEMONES Y ADEMAS QUE ME INCLUYAS EL MODELO TIPO
-        //DEL MODELO TYPO TRAEME EL NOMBRE
+        attributes: [], 
       },
     },
   });
 };
-//funcion que me concatena la informacion traiga tanto e la api como de la base de datos
+
+//--All information
 const getAllPokemon = async () => {
-  const ApiInfo = await getApiInfo(); //tengo que invocarla y ademas ejecutarla a la funcion, sino no va a devolverme nada
+  const ApiInfo = await getApiInfo();
   const DbInfo = await getDbInfo();
   const allInfo = ApiInfo.concat(DbInfo);
   return allInfo;

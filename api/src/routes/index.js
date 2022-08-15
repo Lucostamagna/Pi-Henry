@@ -2,25 +2,21 @@ const { Router } = require("express");
 const axios = require("axios");
 const { getAllPokemon } = require("./controllers");
 
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+
 const { Pokemon, Type } = require("../db");
 const router = Router();
 
 router.get("/pokemons", async (req, res) => {
-  //me trae todos los pokemoness
   const { name } = req.query;
-  const AllPokes = await getAllPokemon(); //llamo a la funcion e arriba
+  const AllPokes = await getAllPokemon();
   if (name) {
-    //es mejor usar el includes que el ====
     const PokeName = AllPokes.filter((el) =>
       el.name.toLowerCase().includes(name.toLowerCase())
     );
     PokeName.length
-      ? res.status(200).send(PokeName) //podria usar try catch para manejar errores
+      ? res.status(200).send(PokeName)
       : res.status(404).send("The Pokemon does not exit");
   } else {
-    //si no hay un query me envia todos los pokemones
     res.status(201).send(AllPokes);
   }
 });
@@ -44,6 +40,7 @@ router.get("/types", async (req, res) => {
   }
 });
 
+
 router.get("/pokemons/:id", async (req, res) => {
   const { id } = req.params;
   const TotalId = await getAllPokemon();
@@ -58,8 +55,6 @@ router.get("/pokemons/:id", async (req, res) => {
     console.log(e);
   }
 });
-
-
 
 router.post("/pokemons", async (req, res) => {
   const {
@@ -76,14 +71,11 @@ router.post("/pokemons", async (req, res) => {
   } = req.body;
 
   if (name) {
-    const AllPokemones = await getAllPokemon(); //si ya existe el nombre que le paso
-    const Poke = AllPokemones.find((e) => e.name === name.toLowerCase()); // lo busco
+    const AllPokemones = await getAllPokemon();
+    const Poke = AllPokemones.find((e) => e.name === name.toLowerCase());
     console.log(Poke);
     if (Poke === undefined) {
-      //si pokemon no existe
-
       const CreatePokemon = await Pokemon.create({
-        //uso el modelo de pokemon para poder crear uno.
         name,
         hp,
         attack,
@@ -96,29 +88,14 @@ router.post("/pokemons", async (req, res) => {
         types,
       });
       const typesDb = await Type.findAll({
-        where: { name: types }, //que me busque donde el nombre sea igual al tipo que me llega por bod
+        where: { name: types },
       });
-      CreatePokemon.addType(typesDb); //a esa constante que la uso para crearme los personajes agregale el tipo que encontre en la otra tabla
+      CreatePokemon.addType(typesDb);
       return res.status(201).send(CreatePokemon);
     }
     return res.status(404).send("existing pokemon");
   }
 });
-
-
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const poke = await Pokemon.findByPk(id);
-    if (poke) {
-      await poke.destroy();
-      res.status(200).send("delete correctly");
-    }
-  } catch (e) {
-    return res.status(404).send("Error e el proceso");
-  }
-});
-
 
 
 module.exports = router;
