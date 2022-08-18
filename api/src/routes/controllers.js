@@ -52,6 +52,7 @@ const getApiInfo = async () => {
 //-- Bd information
 
 const getDbInfo = async () => {
+  try{
   return await Pokemon.findAll({
     include: {
       model: Type, 
@@ -61,14 +62,21 @@ const getDbInfo = async () => {
       },
     },
   });
+} catch(e){
+  console.log(e)
+}
 };
 
 //--All information
 const getAllPokemon = async () => {
+  try{
   const ApiInfo = await getApiInfo();
   const DbInfo = await getDbInfo();
-  const allInfo = ApiInfo.concat(DbInfo);
-  return allInfo;
+
+   return ApiInfo.concat(DbInfo)
+  }catch(e){
+    console.log(e)
+  }
 };
 
 module.exports = {

@@ -9,6 +9,7 @@
    orderByAttack,
    filterCreated,
    getAllTypes,
+   
  } from "../../action/action";
 
  const Filters = ({ setCurrentPage, setOrder }) => {
@@ -44,7 +45,7 @@
      setOrder(e.target.value);
      setCurrentPage(1);
    }
-
+ 
    return (
      <div className={style.div}>
        <div>
@@ -73,6 +74,7 @@
            <option value="ALL"> ALL</option>
            <option value="api"> API </option>
            <option value="created"> CREATED </option>
+           
          </select>
        </div>
 

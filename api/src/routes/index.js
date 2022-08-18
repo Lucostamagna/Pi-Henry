@@ -79,6 +79,7 @@ router.post("/pokemons", async (req, res) => {
         name,
         hp,
         attack,
+
         defense,
         speed,
         height,
@@ -96,6 +97,6 @@ router.post("/pokemons", async (req, res) => {
     return res.status(404).send("existing pokemon");
   }
 });
-
+ 
 
 module.exports = router;

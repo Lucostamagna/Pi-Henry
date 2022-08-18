@@ -106,7 +106,7 @@
 
 
 .error {
-  color: #FB1203 (123, 37, 37);
+  color: red;
   font-family: 'Fredoka One', cursive;
   font-size: 0.8rem;
   margin-top: 5px;

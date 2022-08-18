@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../action/action";
+import { getDetail, cleanDetaild } from "../../action/action";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import style from './Detail.module.css'
@@ -10,9 +10,13 @@ const Detail = (props) => {
   const dispatch = useDispatch();
   const myPokemon = useSelector((state) => state.detail);
 
+  let id = props.match.params.id;
   useEffect(() => {
-    dispatch(getDetail(props.match.params.id)); //accedo a mi id
-  }, [dispatch]);
+    dispatch(getDetail(id));
+    return () => {
+      dispatch(cleanDetaild(dispatch));
+    }
+  }, [dispatch, id]);
 
   return (
     <div >

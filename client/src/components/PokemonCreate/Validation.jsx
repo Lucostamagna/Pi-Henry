@@ -7,7 +7,7 @@ export default function validate(input, allPokemons) {
     errors.name = "Only string and without numbers";
   }
   if (input.name.length <= 2) {
-    errors.name = "Name should have at 2 letters";
+    errors.name = "Name should has at 2 letters";
   }
   if(allPokemons?.filter(p=> input.name === p.name).length !== 0){
     errors.name = "That pokemon name already existes"

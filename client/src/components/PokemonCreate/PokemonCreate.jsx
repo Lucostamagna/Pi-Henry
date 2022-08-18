@@ -29,7 +29,6 @@ const [boolean, setBoolean] = useState(false);
   });
 
   function handleChange(e) { 
-    //maneja el cambio de mis input
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -74,7 +73,7 @@ const [boolean, setBoolean] = useState(false);
       !errors.height &&
       !errors.weight &&
       !errors.img &&
-      !errors.type
+      !errors.types
     ) {
       dispatch(postPokemon(input));
       alert("Pokemon created");

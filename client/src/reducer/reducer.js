@@ -9,13 +9,15 @@ import {
   POST_POKEMON,
   GET_DETAILS,
   CLEAN_POKEMONS,
+  CLEAN_DETAILS,
+ 
 } from "../action/action";
 
 const initialState = {
   pokemons: [],
-  allPokemons: [], //lo tengo de  soporte para pode filtrar
+  allPokemons: [], 
   types: [],
-  detail: [], //para los detalles
+  detail: [], 
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,6 +33,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: action.payload,
       };
+    case CLEAN_DETAILS:
+      return {
+        ...state,
+        detail: []
+      }
     case GET_ALLTYPES:
       return {
         ...state,
@@ -42,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
         detail: action.payload,
       };
     case FILTER_CREATED:
-      let filterCopy = state.allPokemons; ////base de datos
+      let filterCopy = state.allPokemons; 
       let createdFilter =
         action.payload === "created"
           ? filterCopy.filter((e) => e.createdInBd)
@@ -52,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
         pokemons: action.payload === "All" ? state.filterCopy : createdFilter,
       };
     case FILTER_BY_TYPES:
-      let copyTwo = state.allPokemons; //ver
+      let copyTwo = state.allPokemons; 
       let typeFiltered =
         action.payload === "All"
           ? copyTwo
@@ -102,7 +109,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: sortedByAttack,
       };
-
+  
     case GET_POKEMONS_BY_NAME:
       return {
         ...state,

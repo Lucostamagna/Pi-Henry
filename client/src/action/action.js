@@ -10,15 +10,20 @@ export const ORDER_BY_ATTACK="ORDER_BY_ATTACK"
 export const POST_POKEMON="POST_POKEMON"
 export const GET_DETAILS='GET_DETAILS'
 export const CLEAN_POKEMONS='CLEAN_POKEMONS'
+export const CLEAN_DETAILS='CLEAN_DETAILS'
 
 //-------------------------------------------------
 export const getPokemons = () => {
   return async function (dispatch) {
+    try{
     let json = await axios.get("http://localhost:3001/pokemons");
     return dispatch({
       type: GET_POKEMONS,
       payload: json.data,
-    });
+    })
+  }catch(e){
+    console.log(e)
+  }
   };
 };
 
@@ -29,17 +34,28 @@ export const cleanPokemons = () => {
   };
 };
 
+export const cleanDetaild = ()=>{
+  return ({
+    type: CLEAN_DETAILS,
+    detail:[]
+    
+  })
+}
 export const getAllTypes = () => {
   return async function (dispatch) {
+    try{
     let url = "http://localhost:3001/types";
     let json = await axios.get(url);
-    console.log("listo");
     return dispatch({
       type: GET_ALLTYPES,
       payload: json.data,
     });
+  }catch(e){
+    console.log(e)
+  }
   };
 };
+
 
 export const filterPokemonByType = (payload) => {
   return {
@@ -102,17 +118,34 @@ export const postPokemon = (payload) => {
   };
 };
 
-export const getDetail = (id) => {
-  return async function (dispatch) {
-    try {
-      var json = await axios.get("http://localhost:3001/pokemons/" + id);
-      return dispatch({
-        type: GET_DETAILS,
-        payload: json.data,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-};
+// export const getDetail = (id) => {
+//   return async function (dispatch) {
+//     try {
+//       var json = await axios.get("http://localhost:3001/pokemons/" + id);
+//       return dispatch({
+//         type: GET_DETAILS,
+//         payload: json.data,
+//       });
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
+// };
+
+
+// ------- function promise.
+
+export function getDetail(id){
+  return function (dispatch){
+    axios.get("http://localhost:3001/pokemons/" + id)
+    .then(res=>res.data)
+    .then(res=>dispatch({
+      type:GET_DETAILS,
+      payload:res
+    }))
+  }
+}
+
+
+
 
