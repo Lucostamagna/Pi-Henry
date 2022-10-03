@@ -115,7 +115,7 @@ __Ruta principal__: debe contener
   - Imagen
   - Nombre
   - Tipos (Electrico, Fuego, Agua, etc)
-  //NO SON LO MISMO, ESCUCHAR EL AUDIO DE MARIOOOOOOOOOOOOOOOOOOOOO
+  
 - [ ] Botones/Opciones para filtrar por tipo de pokemon y por pokemon existente o creado por nosotros
 - [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque
 - [ ] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por pagina.
@@ -160,7 +160,7 @@ La relación entre ambas entidades debe ser de muchos a muchos ya que un pokemon
 
 __IMPORTANTE__: Pensar como modelar los IDs de los pokemons en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en alguno, este puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API el pokemon `Bulbasaur` tiene id = 1 y en nuestra base de datos creamos un nuevo pokemon `Henry` con id = 1, ver la forma de diferenciarlos cuando querramos acceder al detalle del mismo.
 
-## Backend                                                                   qa <zaaaaaaaaaaaaaaaa33332z<>>
+## Backend                                                                  
 
 Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 
